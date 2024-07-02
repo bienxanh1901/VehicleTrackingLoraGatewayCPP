@@ -4,12 +4,12 @@
 
 using namespace RestClient;
 
-class CloudGateway
+class CloudGateWay
 {
 public:
-    CloudGateway(std::string url);
-    ~CloudGateway();
-    bool send_data(std::string data);
+    CloudGateWay(std::string url);
+    ~CloudGateWay();
+    bool sendData(std::string &data);
 
 private:
     Connection *m_conn;

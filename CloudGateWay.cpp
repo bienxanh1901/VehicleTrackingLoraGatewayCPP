@@ -1,8 +1,8 @@
-#include "cloud_gateway.h"
+#include "CloudGateWay.h"
 
 #include "restclient-cpp/restclient.h"
 
-CloudGateway::CloudGateway(std::string url)
+CloudGateWay::CloudGateWay(std::string url)
 {
     RestClient::init();
     
@@ -16,13 +16,13 @@ CloudGateway::CloudGateway(std::string url)
 
 }
 
-CloudGateway::~CloudGateway()
+CloudGateWay::~CloudGateWay()
 {
     delete m_conn;
     RestClient::disable();
 }
 
-bool CloudGateway::send_data(std::string data)
+bool CloudGateWay::sendData(std::string &data)
 {
     m_resp = m_conn->post("/api/v2/device_request", data);
     return true;
