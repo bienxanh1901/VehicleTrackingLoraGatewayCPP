@@ -9,19 +9,16 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     string data;
-    LoraInterface *serial = LoraInterface::instance();
-    // CloudGateWay client("https://cloud-gateway.vehicletracking.haipham.org");
-    CloudGateWay client("127.0.0.1:8888");
-    serial->openSerial("/dev/ttyUSB0");
-    if(!serial->isReady()) return -1;
+    LoraInterface serial("/dev/ttyUSB0", 115200);
+    this_thread::sleep_for(chrono::seconds(2));
+    CloudGateWay client("https://cloud-gateway.vehicletracking.haipham.org");
 
     while (1)
     {
         
-        data = serial->readMessage();
+        data = serial.readStringUntil("\r\n");
         if (!data.empty())
         {
-            cout << data.length() << ", " << data << endl;
             client.sendData(data);
         }
         else
@@ -30,7 +27,6 @@ int main(int argc, char *argv[])
         }
     }
 
-    serial->closeSerial();
-
+    serial.close();
     return 0;
 }
